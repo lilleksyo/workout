@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>План тренировок</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --card: #1a1d24;
+    --border: #2a2e38;
+    --text: #e8e9ec;
+    --muted: #9198a5;
+    --accent: #5b8def;
+    --day1: #e07856;
+    --day2: #5bb0de;
+    --day3: #9b7bde;
+    --day4: #5bde9b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    margin: 0;
+    padding: 24px 16px 60px;
+  }
+  h1 {
+    font-size: 22px;
+    margin: 0 0 4px;
+    text-align: center;
+  }
+  .subtitle {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 24px;
+  }
+  .day {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    margin-bottom: 18px;
+    overflow: hidden;
+  }
+  .day-header {
+    padding: 14px 16px;
+    font-weight: 600;
+    font-size: 15px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .day1 .day-header { background: var(--day1); }
+  .day2 .day-header { background: var(--day2); }
+  .day3 .day-header { background: var(--day3); }
+  .day4 .day-header { background: var(--day4); }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th {
+    text-align: left;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--muted);
+    padding: 10px 12px 6px;
+    font-weight: 500;
+  }
+  td {
+    padding: 8px 12px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+  }
+  td.name {
+    width: 46%;
+  }
+  td[contenteditable="true"] {
+    outline: none;
+    cursor: text;
+    border-radius: 6px;
+    transition: background 0.15s;
+  }
+  td[contenteditable="true"]:hover {
+    background: rgba(255,255,255,0.04);
+  }
+  td[contenteditable="true"]:focus {
+    background: rgba(91,141,239,0.12);
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+  .note {
+    padding: 10px 16px 14px;
+    font-size: 12px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+  .add-row-btn {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--accent);
+    font-size: 13px;
+    padding: 10px;
+    cursor: pointer;
+    border-top: 1px solid var(--border);
+  }
+  .add-row-btn:hover { background: rgba(255,255,255,0.03); }
+  .del-btn {
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 16px;
+    padding: 0 6px;
+    user-select: none;
+  }
+  .del-btn:hover { color: #e0605b; }
+  .hint {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<h1>4-дневный сплит</h1>
+<div class="subtitle">Нажми на любую ячейку, чтобы отредактировать</div>
+
+<div class="day day1">
+  <div class="day-header"><span>День 1 — Грудь + Бицепс</span></div>
+  <table>
+    <tr><th>Упражнение</th><th>Подходы×Повт</th><th>Вес</th><th></th></tr>
+    <tbody id="t1">
+    <tr><td class="name" contenteditable="true">Жим штанги лёжа</td><td contenteditable="true">5×5</td><td contenteditable="true">80-85кг</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
+    <tr><td class="name" contenteditable="true">Хаммер (жим в тренажере)</td><td contenteditable="true">4×8-10</td><td contenteditable="true">50кг</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
+    <tr><td class="name" contenteditable="true">Бицепс EZ-гриф</td><td contenteditable="true">4×10</td><td contenteditable="true">35кг</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
+    </tbody>
+  </table>
+  <button class="add-row-btn" onclick="addRow('t1')">+ добавить упражнение</button>
+</div>
+
+<div class="day day2">
+  <div class="day-header"><span>День 2 — Спина</span></div>
+  <table>
+    <tr><th>Упражнение</th><th>Подходы×Повт</th><th>Вес</th><th></th></tr>
+    <tbody id="t2">
+    <tr><td class="name" contenteditable="true">Становая тяга</td><td contenteditable="true">3-4×6-10</td><td contenteditable="true">100кг</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
+    <tr><td class="name" contenteditable="true">Вертикальная тяга (верхний блок)</td><td contenteditable="true">4×10</td><td contenteditable="true">75кг</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
+    <tr><td class="name" contenteditable="true">Горизонтальная тяга сидя</td><td contenteditable="true">4×10</td><td contenteditable="true">60кг</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
+    <tr><td class="name" contenteditable="true">Пуловер</td><td contenteditable="true">3×12</td><td contenteditable="true">25кг</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
+    <tr><td class="name" contenteditable="true">Шраги (опционально)</td><td contenteditable="true">2×12</td><td contenteditable="true">80кг</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
+    </tbody>
+  </table>
+  <button class="add-row-btn" onclick="addRow('t2')">+ добавить упражнение</button>
+</div>
+
+<div class="day day3">
+  <div class="day-header"><span>День 3 — Дельты + Трицепс</span></div>
+  <table>
+    <tr><th>Упражнение</th><th>Подходы×Повт</th><th>Вес</th><th></th></tr>
+    <tbody id="t3">
+    <tr><td class="name" contenteditable="true">Жим гантелей над головой</td><td contenteditable="true">4×8</td><td contenteditable="true">24-26кг</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
+    <tr><td class="name" contenteditable="true">Махи на среднюю дельту</td><td contenteditable="true">3×12</td><td contenteditable="true">10кг</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
+    <tr><td class="name" contenteditable="true">Трицепс</td><td contenteditable="true">4×10</td><td contenteditable="true">30кг</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
+    </tbody>
+  </table>
+  <button class="add-row-btn" onclick="addRow('t3')">+ добавить упражнение</button>
+</div>
+
+<div class="day day4">
+  <div class="day-header"><span>День 4 — Ноги</span></div>
+  <table>
+    <tr><th>Упражнение</th><th>Подходы×Повт</th><th>Вес</th><th></th></tr>
+    <tbody id="t4">
+    <tr><td class="name" contenteditable="true">Присед</td><td contenteditable="true">4×8</td><td contenteditable="true">70кг</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
+    <tr><td class="name" contenteditable="true">Жим ногами</td><td contenteditable="true">3×10</td><td contenteditable="true">—</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
+    <tr><td class="name" contenteditable="true">Румынская тяга</td><td contenteditable="true">3×10</td><td contenteditable="true">—</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
+    <tr><td class="name" contenteditable="true">Разгибание ног</td><td contenteditable="true">3×12</td><td contenteditable="true">50кг</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
+    <tr><td class="name" contenteditable="true">Сгибание ног</td><td contenteditable="true">3×12</td><td contenteditable="true">—</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
+    </tbody>
+  </table>
+  <button class="add-row-btn" onclick="addRow('t4')">+ добавить упражнение</button>
+</div>
+
+<div class="hint">Правки не сохраняются между открытиями файла — редактируй и сохраняй/делай скриншот при необходимости.</div>
+
+<script>
+function addRow(tbodyId) {
+  const tbody = document.getElementById(tbodyId);
+  const tr = document.createElement('tr');
+  tr.innerHTML = '<td class="name" contenteditable="true">Новое упражнение</td><td contenteditable="true">3×10</td><td contenteditable="true">—</td><td class="del-btn" onclick="this.closest(\'tr\').remove()">✕</td>';
+  tbody.appendChild(tr);
+  tr.querySelector('.name').focus();
+}
+</script>
+
+</body>
+</html>
