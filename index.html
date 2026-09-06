@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head> <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<head>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 <meta charset="UTF-8">
 <title>План тренировок</title>
 <style>
@@ -89,12 +90,6 @@
     background: rgba(91,141,239,0.12);
     box-shadow: 0 0 0 1px var(--accent);
   }
-  .note {
-    padding: 10px 16px 14px;
-    font-size: 12px;
-    color: var(--muted);
-    border-top: 1px solid var(--border);
-  }
   .add-row-btn {
     display: block;
     width: 100%;
@@ -121,21 +116,32 @@
     font-size: 12px;
     margin-top: 20px;
   }
+  .save-indicator {
+    text-align: center;
+    color: var(--accent);
+    font-size: 12px;
+    height: 16px;
+    margin-bottom: 8px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .save-indicator.show { opacity: 1; }
 </style>
 </head>
 <body>
 
 <h1>4-дневный сплит</h1>
 <div class="subtitle">Нажми на любую ячейку, чтобы отредактировать</div>
+<div class="save-indicator" id="saveIndicator">Сохранено ✓</div>
 
 <div class="day day1">
   <div class="day-header"><span>День 1 — Грудь + Бицепс</span></div>
   <table>
     <tr><th>Упражнение</th><th>Подходы×Повт</th><th>Вес</th><th></th></tr>
     <tbody id="t1">
-    <tr><td class="name" contenteditable="true">Жим штанги лёжа</td><td contenteditable="true">5×5</td><td contenteditable="true">80-85кг</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
-    <tr><td class="name" contenteditable="true">Хаммер (жим в тренажере)</td><td contenteditable="true">4×8-10</td><td contenteditable="true">50кг</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
-    <tr><td class="name" contenteditable="true">Бицепс EZ-гриф</td><td contenteditable="true">4×10</td><td contenteditable="true">35кг</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
+    <tr><td class="name" contenteditable="true">Жим штанги лёжа</td><td contenteditable="true">5×5</td><td contenteditable="true">80-85кг</td><td class="del-btn" onclick="this.closest('tr').remove(); saveData();">✕</td></tr>
+    <tr><td class="name" contenteditable="true">Хаммер (жим в тренажере)</td><td contenteditable="true">4×8-10</td><td contenteditable="true">50кг</td><td class="del-btn" onclick="this.closest('tr').remove(); saveData();">✕</td></tr>
+    <tr><td class="name" contenteditable="true">Бицепс EZ-гриф</td><td contenteditable="true">4×10</td><td contenteditable="true">35кг</td><td class="del-btn" onclick="this.closest('tr').remove(); saveData();">✕</td></tr>
     </tbody>
   </table>
   <button class="add-row-btn" onclick="addRow('t1')">+ добавить упражнение</button>
@@ -146,11 +152,11 @@
   <table>
     <tr><th>Упражнение</th><th>Подходы×Повт</th><th>Вес</th><th></th></tr>
     <tbody id="t2">
-    <tr><td class="name" contenteditable="true">Становая тяга</td><td contenteditable="true">3-4×6-10</td><td contenteditable="true">100кг</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
-    <tr><td class="name" contenteditable="true">Вертикальная тяга (верхний блок)</td><td contenteditable="true">4×10</td><td contenteditable="true">75кг</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
-    <tr><td class="name" contenteditable="true">Горизонтальная тяга сидя</td><td contenteditable="true">4×10</td><td contenteditable="true">60кг</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
-    <tr><td class="name" contenteditable="true">Пуловер</td><td contenteditable="true">3×12</td><td contenteditable="true">25кг</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
-    <tr><td class="name" contenteditable="true">Шраги (опционально)</td><td contenteditable="true">2×12</td><td contenteditable="true">80кг</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
+    <tr><td class="name" contenteditable="true">Становая тяга</td><td contenteditable="true">3-4×6-10</td><td contenteditable="true">100кг</td><td class="del-btn" onclick="this.closest('tr').remove(); saveData();">✕</td></tr>
+    <tr><td class="name" contenteditable="true">Вертикальная тяга (верхний блок)</td><td contenteditable="true">4×10</td><td contenteditable="true">75кг</td><td class="del-btn" onclick="this.closest('tr').remove(); saveData();">✕</td></tr>
+    <tr><td class="name" contenteditable="true">Горизонтальная тяга сидя</td><td contenteditable="true">4×10</td><td contenteditable="true">60кг</td><td class="del-btn" onclick="this.closest('tr').remove(); saveData();">✕</td></tr>
+    <tr><td class="name" contenteditable="true">Пуловер</td><td contenteditable="true">3×12</td><td contenteditable="true">25кг</td><td class="del-btn" onclick="this.closest('tr').remove(); saveData();">✕</td></tr>
+    <tr><td class="name" contenteditable="true">Шраги (опционально)</td><td contenteditable="true">2×12</td><td contenteditable="true">80кг</td><td class="del-btn" onclick="this.closest('tr').remove(); saveData();">✕</td></tr>
     </tbody>
   </table>
   <button class="add-row-btn" onclick="addRow('t2')">+ добавить упражнение</button>
@@ -161,9 +167,9 @@
   <table>
     <tr><th>Упражнение</th><th>Подходы×Повт</th><th>Вес</th><th></th></tr>
     <tbody id="t3">
-    <tr><td class="name" contenteditable="true">Жим гантелей над головой</td><td contenteditable="true">4×8</td><td contenteditable="true">24-26кг</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
-    <tr><td class="name" contenteditable="true">Махи на среднюю дельту</td><td contenteditable="true">3×12</td><td contenteditable="true">10кг</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
-    <tr><td class="name" contenteditable="true">Трицепс</td><td contenteditable="true">4×10</td><td contenteditable="true">30кг</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
+    <tr><td class="name" contenteditable="true">Жим гантелей над головой</td><td contenteditable="true">4×8</td><td contenteditable="true">24-26кг</td><td class="del-btn" onclick="this.closest('tr').remove(); saveData();">✕</td></tr>
+    <tr><td class="name" contenteditable="true">Махи на среднюю дельту</td><td contenteditable="true">3×12</td><td contenteditable="true">10кг</td><td class="del-btn" onclick="this.closest('tr').remove(); saveData();">✕</td></tr>
+    <tr><td class="name" contenteditable="true">Трицепс</td><td contenteditable="true">4×10</td><td contenteditable="true">30кг</td><td class="del-btn" onclick="this.closest('tr').remove(); saveData();">✕</td></tr>
     </tbody>
   </table>
   <button class="add-row-btn" onclick="addRow('t3')">+ добавить упражнение</button>
@@ -174,26 +180,87 @@
   <table>
     <tr><th>Упражнение</th><th>Подходы×Повт</th><th>Вес</th><th></th></tr>
     <tbody id="t4">
-    <tr><td class="name" contenteditable="true">Присед</td><td contenteditable="true">4×8</td><td contenteditable="true">70кг</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
-    <tr><td class="name" contenteditable="true">Жим ногами</td><td contenteditable="true">3×10</td><td contenteditable="true">—</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
-    <tr><td class="name" contenteditable="true">Румынская тяга</td><td contenteditable="true">3×10</td><td contenteditable="true">—</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
-    <tr><td class="name" contenteditable="true">Разгибание ног</td><td contenteditable="true">3×12</td><td contenteditable="true">50кг</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
-    <tr><td class="name" contenteditable="true">Сгибание ног</td><td contenteditable="true">3×12</td><td contenteditable="true">—</td><td class="del-btn" onclick="this.closest('tr').remove()">✕</td></tr>
+    <tr><td class="name" contenteditable="true">Присед</td><td contenteditable="true">4×8</td><td contenteditable="true">70кг</td><td class="del-btn" onclick="this.closest('tr').remove(); saveData();">✕</td></tr>
+    <tr><td class="name" contenteditable="true">Жим ногами</td><td contenteditable="true">3×10</td><td contenteditable="true">—</td><td class="del-btn" onclick="this.closest('tr').remove(); saveData();">✕</td></tr>
+    <tr><td class="name" contenteditable="true">Румынская тяга</td><td contenteditable="true">3×10</td><td contenteditable="true">—</td><td class="del-btn" onclick="this.closest('tr').remove(); saveData();">✕</td></tr>
+    <tr><td class="name" contenteditable="true">Разгибание ног</td><td contenteditable="true">3×12</td><td contenteditable="true">50кг</td><td class="del-btn" onclick="this.closest('tr').remove(); saveData();">✕</td></tr>
+    <tr><td class="name" contenteditable="true">Сгибание ног</td><td contenteditable="true">3×12</td><td contenteditable="true">—</td><td class="del-btn" onclick="this.closest('tr').remove(); saveData();">✕</td></tr>
     </tbody>
   </table>
   <button class="add-row-btn" onclick="addRow('t4')">+ добавить упражнение</button>
 </div>
 
-<div class="hint">Правки не сохраняются между открытиями файла — редактируй и сохраняй/делай скриншот при необходимости.</div>
+<div class="hint">Изменения сохраняются автоматически в Telegram Cloud Storage.</div>
 
 <script>
+const tg = window.Telegram.WebApp;
+tg.ready();
+
 function addRow(tbodyId) {
   const tbody = document.getElementById(tbodyId);
   const tr = document.createElement('tr');
-  tr.innerHTML = '<td class="name" contenteditable="true">Новое упражнение</td><td contenteditable="true">3×10</td><td contenteditable="true">—</td><td class="del-btn" onclick="this.closest(\'tr\').remove()">✕</td>';
+  tr.innerHTML = '<td class="name" contenteditable="true">Новое упражнение</td><td contenteditable="true">3×10</td><td contenteditable="true">—</td><td class="del-btn" onclick="this.closest(\'tr\').remove(); saveData();">✕</td>';
   tbody.appendChild(tr);
+  attachSaveListeners(tr);
   tr.querySelector('.name').focus();
+  saveData();
 }
+
+function collectData() {
+  const data = {};
+  ['t1','t2','t3','t4'].forEach(id => {
+    const rows = [...document.getElementById(id).querySelectorAll('tr')];
+    data[id] = rows.map(tr => {
+      const cells = tr.querySelectorAll('td');
+      return [cells[0].innerText, cells[1].innerText, cells[2].innerText];
+    });
+  });
+  return data;
+}
+
+function showSaved() {
+  const el = document.getElementById('saveIndicator');
+  el.classList.add('show');
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('show'), 1200);
+}
+
+function saveData() {
+  const json = JSON.stringify(collectData());
+  tg.CloudStorage.setItem('workout_plan', json, (err) => {
+    if (err) { console.error('Save error:', err); return; }
+    showSaved();
+  });
+}
+
+function loadData() {
+  tg.CloudStorage.getItem('workout_plan', (err, value) => {
+    if (err || !value) return;
+    const data = JSON.parse(value);
+    ['t1','t2','t3','t4'].forEach(id => {
+      if (!data[id]) return;
+      const tbody = document.getElementById(id);
+      tbody.innerHTML = '';
+      data[id].forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td class="name" contenteditable="true">${row[0]}</td><td contenteditable="true">${row[1]}</td><td contenteditable="true">${row[2]}</td><td class="del-btn" onclick="this.closest('tr').remove(); saveData();">✕</td>`;
+        attachSaveListeners(tr);
+        tbody.appendChild(tr);
+      });
+    });
+  });
+}
+
+function attachSaveListeners(tr) {
+  tr.querySelectorAll('[contenteditable="true"]').forEach(td => {
+    td.addEventListener('blur', saveData);
+  });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  loadData();
+  document.querySelectorAll('tbody tr').forEach(attachSaveListeners);
+});
 </script>
 
 </body>
